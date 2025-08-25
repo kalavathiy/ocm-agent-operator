@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
-    build.appstudio.openshift.io/repo: https://github.com/openshift/ocm-agent-operator?rev={{revision}}
+    build.appstudio.openshift.io/repo: https://github.com/openshift/cocm-agent-operator?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
@@ -11,11 +11,11 @@ metadata:
       == "master"
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: ocm-agent-operator
-    appstudio.openshift.io/component: ocm-agent-operator-e2e
+    appstudio.openshift.io/application: cocm-agent-operator
+    appstudio.openshift.io/component: cocm-agent-operator-e2e
     pipelines.appstudio.openshift.io/type: build
-  name: ocm-agent-operator-e2e-on-push
-  namespace: ocm-agent-operator-tenant
+  name: cocm-agent-operator-e2e-on-push
+  namespace: cocm-agent-operator-tenant
 spec:
   params:
   - name: git-url
@@ -23,7 +23,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/ocm-agent-operator-tenant/openshift/ocm-agent-operator-e2e:{{revision}}
+    value: quay.io/redhat-user-workloads/cocm-agent-operator-tenant/openshift/cocm-agent-operator-e2e:{{revision}}
   - name: dockerfile
     value: test/e2e/Dockerfile
   - name: path-context
@@ -354,7 +354,7 @@ spec:
         - name: name
           value: ecosystem-cert-preflight-checks
         - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-ecosystem-cert-preflight-checks:0.2@sha256:4bafcaab0f0c998a89a1cc33bdbbf74f39eea52e6c0e43013c356a322f94940f
+          value: quay.io/konflux-ci/tekton-catalog/task-ecosystem-cert-preflight-checks:0.2@sha256:17c8c04607c5d6ac6db521ab27aeb8216118f4265185896f5d00cb825f8d9efd
         - name: kind
           value: task
         resolver: bundles
@@ -582,7 +582,7 @@ spec:
         - name: name
           value: rpms-signature-scan
         - name: bundle
-          value: quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2@sha256:7d1c087d7d33dd97effb3b4c9f3788e4c3138da2032040d69da6929e9a3aaceb
+          value: quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2@sha256:00a29b6f86c2b8237077a5f5ca29a71aae59eab311dde57de27e5dcf4cae5d77
         - name: kind
           value: task
         resolver: bundles
@@ -597,7 +597,7 @@ spec:
     - name: netrc
       optional: true
   taskRunTemplate:
-    serviceAccountName: build-pipeline-ocm-agent-operator-e2e
+    serviceAccountName: build-pipeline-cocm-agent-operator-e2e
   workspaces:
   - name: git-auth
     secret:
